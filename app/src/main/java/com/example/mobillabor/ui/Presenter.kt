@@ -1,4 +1,4 @@
 package com.example.mobillabor.ui
 
-class Presenter {
+abstract class Presenter {
 }
