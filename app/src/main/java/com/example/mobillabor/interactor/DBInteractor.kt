@@ -1,4 +1,4 @@
 package com.example.mobillabor.interactor
 
-class FootballInteractor {
+class DBInteractor {
 }
