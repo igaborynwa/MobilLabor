@@ -1,4 +1,12 @@
 package com.example.mobillabor.di
 
-class MainApplication {
+import android.app.Application
+
+class MainApplication: Application() {
+    lateinit var injector: MyComponent
+
+    override fun onCreate() {
+        super.onCreate()
+        injector = DaggerMyComponent.builder().myModule(MyModule()).build()
+    }
 }
