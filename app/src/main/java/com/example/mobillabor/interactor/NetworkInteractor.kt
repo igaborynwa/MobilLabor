@@ -1,6 +1,7 @@
 package com.example.mobillabor.interactor
 
 import android.os.Handler
+import android.util.Log
 import com.example.mobillabor.model.Player
 import com.example.mobillabor.model.Team
 import com.example.mobillabor.repository.network.FootballApi

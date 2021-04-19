@@ -2,6 +2,7 @@ package com.example.mobillabor.di
 
 import com.example.mobillabor.interactor.NetworkInteractor
 import com.example.mobillabor.repository.network.FootballApi
+import com.example.mobillabor.ui.team.TeamPresenter
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -24,4 +25,8 @@ class MyModule {
     @Provides
     @Singleton
     fun providesNetworkInteractor(footballApi: FootballApi) = NetworkInteractor(footballApi)
+
+    @Provides
+    @Singleton
+    fun providesTeamPresenter(networkInteractor: NetworkInteractor) = TeamPresenter(networkInteractor)
 }
