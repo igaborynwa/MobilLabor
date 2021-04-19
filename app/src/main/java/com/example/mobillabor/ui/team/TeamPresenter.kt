@@ -1,4 +1,22 @@
 package com.example.mobillabor.ui.team
 
-class TeamPresenter {
+import com.example.mobillabor.interactor.NetworkInteractor
+import com.example.mobillabor.model.Team
+import com.example.mobillabor.ui.Presenter
+import javax.inject.Inject
+
+class TeamPresenter @Inject constructor(private val networkInteractor: NetworkInteractor): Presenter<TeamScreen?>() {
+
+
+    fun getTeam(){
+        networkInteractor.getTeam(64, onSuccess = this::onGetTeamSuccess, this::onGetTeamError)
+    }
+
+    private fun onGetTeamSuccess(team: Team) {
+
+    }
+
+    private fun onGetTeamError(e: Throwable){
+        e.printStackTrace()
+    }
 }

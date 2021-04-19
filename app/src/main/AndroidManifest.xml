@@ -3,6 +3,7 @@
     package="com.example.mobillabor">
 
     <application
+        android:name=".di.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobilLabor">
         <activity android:name=".ui.about.AboutActivity"></activity>
-        <activity android:name=".ui.player.PalyerActivity" />
+        <activity android:name=".ui.player.PlayerActivity" />
         <activity android:name=".ui.team.TeamActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
