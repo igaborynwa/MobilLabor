@@ -1,14 +1,23 @@
 package com.example.mobillabor.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "teams")
 data class Team (
-    @SerializedName("id") val id: Int,
-    @SerializedName("name") val name: String,
-    @SerializedName("website") val website: String,
-    @SerializedName("crestUrl") val crestUrl: String,
-    @SerializedName("founded") val founded: Int,
-    @SerializedName("clubColors") val clubColors: String,
-    @SerializedName("venue") val venue: String,
-    @SerializedName("squad") val squad: List<Player>
-)
+        @PrimaryKey(autoGenerate = false) @ColumnInfo(name = "id")
+        @SerializedName("id") var id: Int?,
+        @SerializedName("name") var name: String,
+        @SerializedName("website") var website: String,
+        @SerializedName("crestUrl") var crestUrl: String,
+        @SerializedName("founded") var founded: Int,
+        @SerializedName("clubColors") var clubColors: String,
+        @SerializedName("venue") var venue: String,
+
+){
+    @SerializedName("squad") @Ignore var squad: List<Player>? = null
+
+}

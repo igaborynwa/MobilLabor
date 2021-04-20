@@ -1,13 +1,17 @@
 package com.example.mobillabor.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "players")
 data class Player (
-    @SerializedName("id") val id: Int,
-    @SerializedName("name") val name: String,
-    @SerializedName("dateOfBirth") val dateOfBirth: String,
-    @SerializedName("countryOfBirth") val countryOfBirth: String,
-    @SerializedName("nationality") val nationality: String,
-    @SerializedName("position") val position: String
+        @PrimaryKey(autoGenerate = false)
+    @SerializedName("id") var id: Int,
+    @SerializedName("name") var name: String,
+    @SerializedName("dateOfBirth") var dateOfBirth: String,
+    @SerializedName("countryOfBirth") var countryOfBirth: String,
+    @SerializedName("nationality") var nationality: String,
+    @SerializedName("position") var position: String
 
         )

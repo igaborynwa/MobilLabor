@@ -7,6 +7,6 @@ class MainApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        injector = DaggerMyComponent.builder().myModule(MyModule()).build()
+        injector = DaggerMyComponent.builder().myModule(MyModule(this)).build()
     }
 }
