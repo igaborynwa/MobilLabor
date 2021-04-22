@@ -2,9 +2,6 @@ package com.example.mobillabor.ui.team
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.databinding.DataBindingUtil
-import com.example.mobillabor.R
 import com.example.mobillabor.databinding.ActivityTeamBinding
 import com.example.mobillabor.di.MainApplication
 import com.example.mobillabor.model.Team
