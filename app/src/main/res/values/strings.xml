@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MobilLabor</string>
+    <string name="tvWebsiteText">Website: %s</string>
+    <string name="tvFoundedText">Founded: %s</string>
+    <string name="tvVenueText">Venue: %s</string>
+    <string name="tvColorsText">Club colors: %s</string>
 </resources>
