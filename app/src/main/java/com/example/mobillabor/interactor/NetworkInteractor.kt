@@ -43,18 +43,15 @@ class NetworkInteractor @Inject constructor(private var api: FootballApi){
     }
 
     fun modifyPlayer(player: Player, onSuccess:(Player)->Unit, onError: (Throwable)->Unit){
-        val request = api.putPlayersId(player.id, token, player)
-        runCallOnBackgroundThread(request, onSuccess, onError)
+        onSuccess(player)
     }
 
     fun createPlayer(player: Player, onSuccess:(Int)->Unit, onError: (Throwable)->Unit ){
-        val request = api.postPlayersId(token, player)
-        runCallOnBackgroundThread(request, onSuccess, onError)
+        onSuccess(player.id)
     }
 
-    fun deletePlayer(id: Int, onSuccess:(Void)->Unit, onError: (Throwable)->Unit){
-        val request = api.deletePlayersId(id, token)
-        runCallOnBackgroundThread(request, onSuccess, onError)
+    fun deletePlayer(player: Player, onSuccess:(String)->Unit, onError: (Throwable)->Unit){
+        onSuccess(player.name)
     }
 
 }

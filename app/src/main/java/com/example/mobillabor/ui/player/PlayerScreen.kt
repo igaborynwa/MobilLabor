@@ -5,4 +5,5 @@ import com.example.mobillabor.model.Player
 interface PlayerScreen {
     fun showError(e: Throwable)
     fun showPlayer(p: Player)
+    fun showPlayerModified(p: Player)
 }

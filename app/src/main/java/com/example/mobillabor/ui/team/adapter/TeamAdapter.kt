@@ -11,13 +11,14 @@ import com.example.mobillabor.R
 import com.example.mobillabor.databinding.PlayerRowBinding
 import com.example.mobillabor.model.Player
 import com.example.mobillabor.ui.player.PlayerActivity
+import com.example.mobillabor.ui.team.TeamActivity
 
-class TeamAdapter(private var context: Context): RecyclerView.Adapter<TeamAdapter.ViewHolder>() {
+class TeamAdapter(private var activity: TeamActivity): RecyclerView.Adapter<TeamAdapter.ViewHolder>() {
 
     var playerList = mutableListOf<Player>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(context)
+        val layoutInflater = LayoutInflater.from(activity)
         val binding: PlayerRowBinding = DataBindingUtil.inflate(layoutInflater, R.layout.player_row, parent, false)
         binding.adapter=this
         return ViewHolder(binding)
@@ -39,9 +40,17 @@ class TeamAdapter(private var context: Context): RecyclerView.Adapter<TeamAdapte
     }
 
     fun showPlayer(player: Player){
-        val intent = Intent(context, PlayerActivity::class.java)
+        val intent = Intent(activity, PlayerActivity::class.java)
         intent.putExtra("PLAYER_ID", player.id)
-        context.startActivity(intent)
+        activity.startActivity(intent)
+    }
+
+    fun deletePlayer(player: Player){
+        val pos = playerList.indexOf(player)
+        playerList.remove(player)
+        notifyItemRemoved(pos)
+        activity.deletePlayer(player)
+
     }
 
     class ViewHolder(private val binding: PlayerRowBinding): RecyclerView.ViewHolder(binding.root) {

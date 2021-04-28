@@ -11,11 +11,19 @@ class PlayerPresenter @Inject constructor(private val networkInteractor: Network
         networkInteractor.getPlayer(id, this::onGetPlayerSuccess, this::onError )
     }
 
+    fun modifyPlayer(player: Player){
+        networkInteractor.modifyPlayer(player, onSuccess = this::onPlayerModified, onError = this::onError)
+    }
+
     private fun onError(e: Throwable){
         screen?.showError(e)
     }
 
     private fun onGetPlayerSuccess(p: Player){
         screen?.showPlayer(p)
+    }
+
+    private fun onPlayerModified(p: Player){
+        screen?.showPlayerModified(p)
     }
 }

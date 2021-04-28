@@ -42,4 +42,13 @@ class PlayerActivity : AppCompatActivity(), PlayerScreen {
         title = player.name
         binding.player = player
     }
+
+    override fun showPlayerModified(p: Player) {
+        title=p.name
+        binding.player=p
+    }
+
+    fun modifyPlayer(player: Player){
+        playerPresenter.modifyPlayer(player)
+    }
 }

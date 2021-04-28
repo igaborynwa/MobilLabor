@@ -12,6 +12,13 @@ class MockFootballDAO: FootballDAO {
         return teams
     }
 
+    override fun getTeam(id: Int): Team {
+        for(t in teams){
+            if (t.id == id) return t
+        }
+        return teams[0]
+    }
+
     override fun getPlayers(): List<Player> {
         return players
     }

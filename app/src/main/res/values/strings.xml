@@ -4,4 +4,9 @@
     <string name="tvFoundedText">Founded: %s</string>
     <string name="tvVenueText">Venue: %s</string>
     <string name="tvColorsText">Club colors: %s</string>
+    <string name="tvCountryOfBirthText">Country of birth: %s</string>
+    <string name="tvDateOfBirthText">Date of birth: %s</string>
+    <string name="tvNationalityText">Nationality: %s</string>
+    <string name="tvPositionText">Position: %s</string>
+
 </resources>
