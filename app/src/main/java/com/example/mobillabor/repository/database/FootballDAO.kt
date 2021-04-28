@@ -12,6 +12,9 @@ interface FootballDAO {
     @Query("SELECT * FROM teams")
     fun getTeams(): List<Team>
 
+    @Query("SELECT * FROM teams WHERE id = :id")
+    fun getTeam(id: Int): Team
+
     @Query("SELECT * FROM players")
     fun getPlayers(): List<Player>
 

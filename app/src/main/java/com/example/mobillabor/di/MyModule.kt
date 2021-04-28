@@ -48,5 +48,5 @@ class MyModule(private var context: Context) {
 
     @Provides
     @Singleton
-    fun providesPlayerPresenter() = PlayerPresenter()
+    fun providesPlayerPresenter(networkInteractor: NetworkInteractor) = PlayerPresenter(networkInteractor)
 }

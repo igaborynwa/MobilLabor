@@ -7,7 +7,6 @@ class PlayerTest {
 
     @Test
     fun testExample() {
-
         Assert.assertEquals("a", "a" )
     }
 }
