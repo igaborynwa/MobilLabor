@@ -10,6 +10,7 @@
         <variable
             name="adapter"
             type="com.example.mobillabor.ui.team.adapter.TeamAdapter" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -41,14 +42,24 @@
 
             <ImageView
                 android:id="@+id/btnDelete"
-                android:layout_margin="20dp"
-                android:onClick="@{() -> adapter.deletePlayer(player)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:onClick="@{() -> adapter.deletePlayer(player)}"
+                app:layout_constraintBottom_toBottomOf="@id/tvTownName"
+                app:layout_constraintEnd_toStartOf="@id/btnFav"
+                app:layout_constraintTop_toTopOf="@id/tvTownName"
+                app:srcCompat="@android:drawable/ic_menu_delete" />
+
+            <ImageView
+                android:id="@+id/btnFav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 app:layout_constraintBottom_toBottomOf="@id/tvTownName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvTownName"
-                app:srcCompat="@android:drawable/ic_menu_delete" />
+                app:srcCompat="@android:drawable/star_big_off" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
