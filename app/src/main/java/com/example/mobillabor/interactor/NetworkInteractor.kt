@@ -47,6 +47,7 @@ class NetworkInteractor @Inject constructor(private var api: FootballApi){
     }
 
     fun createPlayer(player: Player, onSuccess:(Int)->Unit, onError: (Throwable)->Unit ){
+
         onSuccess(player.id)
     }
 

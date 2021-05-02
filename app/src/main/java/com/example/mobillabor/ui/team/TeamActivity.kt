@@ -2,6 +2,7 @@ package com.example.mobillabor.ui.team
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mobillabor.databinding.ActivityTeamBinding
@@ -52,15 +53,20 @@ class TeamActivity : AppCompatActivity(), TeamScreen {
 
     override fun showNetworkError(e: Throwable) {
         e.printStackTrace()
-        Toast.makeText(applicationContext, "Error during network communication!", Toast.LENGTH_LONG).show()
+        Toast.makeText(applicationContext, "Error during network communication!", Toast.LENGTH_SHORT).show()
     }
 
     override fun showDeleteSuccess(playerName: String) {
-        Toast.makeText(applicationContext, "$playerName successfully deleted!", Toast.LENGTH_LONG).show()
+        Toast.makeText(applicationContext, "$playerName successfully deleted!", Toast.LENGTH_SHORT).show()
     }
 
     override fun showPlayerAdded(id: Int) {
-        Toast.makeText(applicationContext, "Player added with id: $id", Toast.LENGTH_LONG).show()
+        Log.d("show", "added")
+        Toast.makeText(applicationContext, "Favourite player added!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showPlayerModified(player: Player) {
+        Toast.makeText(applicationContext, "Favourite player modified!", Toast.LENGTH_SHORT).show()
     }
 
     fun deletePlayer(player: Player){
@@ -69,5 +75,9 @@ class TeamActivity : AppCompatActivity(), TeamScreen {
 
     fun addPlayer(player: Player){
         teamPresenter.addPlayer(player)
+    }
+
+    fun modify(player:Player){
+        teamPresenter.modifyPlayer(player)
     }
 }
