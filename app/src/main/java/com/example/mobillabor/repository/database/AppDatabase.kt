@@ -9,7 +9,7 @@ import com.example.mobillabor.model.Team
 
 
 //TODO: Entities
-@Database(entities = [Player::class, Team::class], version = 1)
+@Database(entities = [Player::class, Team::class], version = 2)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun footballDao(): FootballDAO

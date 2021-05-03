@@ -1,13 +1,17 @@
 package com.example.mobillabor.ui.player
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
-import com.example.mobillabor.R
 import com.example.mobillabor.databinding.ActivityPlayerBinding
 import com.example.mobillabor.di.MainApplication
 import com.example.mobillabor.model.Player
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 class PlayerActivity : AppCompatActivity(), PlayerScreen {
     @Inject lateinit var playerPresenter: PlayerPresenter
@@ -18,14 +22,13 @@ class PlayerActivity : AppCompatActivity(), PlayerScreen {
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         (application as MainApplication).injector.inject(this)
-        val playerId = intent.getIntExtra("PLAYER_ID", 0)
-        playerPresenter.getPlayer(playerId)
-
     }
 
     override fun onStart() {
         super.onStart()
         playerPresenter.attachScreen(this)
+        val playerId = intent.getIntExtra("PLAYER_ID", 0)
+        playerPresenter.getPlayer(playerId, checkConnection())
     }
 
     override fun onStop() {
@@ -38,17 +41,16 @@ class PlayerActivity : AppCompatActivity(), PlayerScreen {
         Toast.makeText(applicationContext, "Error during network communication!", Toast.LENGTH_LONG).show()
     }
 
-    override fun showPlayer(player: Player) {
-        title = player.name
-        binding.player = player
+    override fun showPlayer(p: Player) {
+        Log.d("name", p.name)
+        title = p.name
+        binding.player = p
     }
 
-    override fun showPlayerModified(p: Player) {
-        title=p.name
-        binding.player=p
-    }
 
-    fun modifyPlayer(player: Player){
-        playerPresenter.modifyPlayer(player)
+    private fun checkConnection(): Boolean{
+        val cm = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        return activeNetwork?.isConnectedOrConnecting == true
     }
 }
