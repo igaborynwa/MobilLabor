@@ -1,5 +1,8 @@
 package com.example.mobillabor.ui.team
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -25,8 +28,16 @@ class TeamActivity : AppCompatActivity(), TeamScreen {
         binding = ActivityTeamBinding.inflate(layoutInflater)
         setContentView(binding.root)
         (application as MainApplication).injector.inject(this)
-        teamPresenter.getTeam()
+        teamPresenter.getTeam(checkConnection())
         initRecyclerView()
+    }
+
+
+
+    private fun checkConnection(): Boolean{
+        val cm = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        return activeNetwork?.isConnectedOrConnecting == true
     }
 
     private fun initRecyclerView(){
@@ -45,10 +56,12 @@ class TeamActivity : AppCompatActivity(), TeamScreen {
     }
 
     override fun showTeam(team: Team) {
+        this@TeamActivity.runOnUiThread {
         title = team.name
         binding.team= team
-        teamAdapter.setPlayers(team.squad!!)
+        teamAdapter.setPlayers(team.squad)
         GlideToVectorYou.init().with(this).load(Uri.parse(team.crestUrl),binding.ivCrest)
+        }
     }
 
     override fun showNetworkError(e: Throwable) {
@@ -61,7 +74,6 @@ class TeamActivity : AppCompatActivity(), TeamScreen {
     }
 
     override fun showPlayerAdded(id: Int) {
-        Log.d("show", "added")
         Toast.makeText(applicationContext, "Favourite player added!", Toast.LENGTH_SHORT).show()
     }
 

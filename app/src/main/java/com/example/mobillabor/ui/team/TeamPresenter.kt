@@ -1,6 +1,5 @@
 package com.example.mobillabor.ui.team
 
-import android.util.Log
 import com.example.mobillabor.interactor.DBInteractor
 import com.example.mobillabor.interactor.NetworkInteractor
 import com.example.mobillabor.model.Player
@@ -10,8 +9,21 @@ import javax.inject.Inject
 
 class TeamPresenter @Inject constructor(private val networkInteractor: NetworkInteractor,
                                         private val dbInteractor: DBInteractor): Presenter<TeamScreen?>() {
-    fun getTeam(){
-        networkInteractor.getTeam(64, onSuccess = this::onGetTeamSuccess, this::onError)
+    fun getTeam(con: Boolean){
+        if(con) networkInteractor.getTeam(64, onSuccess = this::onGetTeamSuccess, this::onError)
+        else getTeamFromDb()
+
+    }
+
+    fun getTeamFromDb(){
+        Thread{
+            val team = dbInteractor.getTeam(64)
+            val squad = dbInteractor.getPlayers()
+            for(p in squad){
+                team!!.squad.add(p)
+            }
+           onGetTeamSuccess(team!!)
+        }.start()
     }
 
     private fun onGetTeamSuccess(team: Team) {
@@ -20,7 +32,17 @@ class TeamPresenter @Inject constructor(private val networkInteractor: NetworkIn
     }
 
     private fun addTeamToDB(team: Team){
-
+        Thread{
+            val tmp = dbInteractor.getTeam(team.id!!)
+            if(tmp==null){
+                dbInteractor.insertTeam(team)
+            }
+            for(player in team.squad){
+                if(dbInteractor.getPlayer(player.id)==null){
+                    dbInteractor.insertPlayer(player)
+                }
+            }
+        }.start()
     }
 
     private fun onError(e: Throwable){
@@ -37,11 +59,9 @@ class TeamPresenter @Inject constructor(private val networkInteractor: NetworkIn
 
     fun addPlayer(player: Player){
         networkInteractor.createPlayer(player, onSuccess = this::onPlayerAddedSuccess, onError = this::onError)
-        Log.d("Player", "added")
     }
 
     private fun onPlayerAddedSuccess(id: Int){
-        Log.d("created", "player")
         screen?.showPlayerAdded(id)
     }
 

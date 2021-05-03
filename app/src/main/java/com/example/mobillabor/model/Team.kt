@@ -18,6 +18,6 @@ data class Team (
         @SerializedName("venue") var venue: String,
 
 ){
-    @SerializedName("squad") @Ignore var squad: List<Player>? = null
+    @SerializedName("squad") @Ignore var squad: ArrayList<Player> = ArrayList()
 
 }
