@@ -11,7 +11,6 @@ import javax.inject.Inject
 class NetworkInteractor @Inject constructor(private var api: FootballApi){
     private val token = "523d71ebf3984ab0ae29ead39e61497f"
 
-
     private fun <T> runCallOnBackgroundThread(
         call: Call<T>,
         onSuccess: (T) -> Unit,

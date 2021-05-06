@@ -12,8 +12,6 @@ class DBInteractor @Inject constructor(private var footballDAO: FootballDAO) {
 
     fun getPlayer(id: Int) = footballDAO.getPlayer(id)
 
-    fun getTeams() = footballDAO.getTeams()
-
 
     fun getTeam(id: Int) = footballDAO.getTeam(id)
 
@@ -25,9 +23,6 @@ class DBInteractor @Inject constructor(private var footballDAO: FootballDAO) {
         footballDAO.insertTeam(team)
     }
 
-    fun deleteTeam(team: Team){
-        footballDAO.deleteTeam(team)
-    }
 
     fun deletePlayer(player: Player){
         footballDAO.deletePlayer(player)

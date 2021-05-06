@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.mobillabor.R
 import com.example.mobillabor.databinding.ActivityPlayerBinding
 import com.example.mobillabor.di.MainApplication
 import com.example.mobillabor.model.Player
@@ -36,14 +37,13 @@ class PlayerActivity : AppCompatActivity(), PlayerScreen {
         playerPresenter.detachScreen()
     }
 
-    override fun showError(e: Throwable) {
-        e.printStackTrace()
-        Toast.makeText(applicationContext, "Error during network communication!", Toast.LENGTH_LONG).show()
+    override fun showError(e: Throwable?) {
+        e!!.printStackTrace()
+        Toast.makeText(applicationContext,  getString(R.string.networkErrorText), Toast.LENGTH_LONG).show()
     }
 
-    override fun showPlayer(p: Player) {
-        Log.d("name", p.name)
-        title = p.name
+    override fun showPlayer(p: Player?) {
+        title = p!!.name
         binding.player = p
     }
 
