@@ -37,25 +37,26 @@ class TeamActivity : AppCompatActivity(), TeamScreen {
         teamPresenter.getTeam(checkConnection())
         initRecyclerView()
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar, menu)
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean{
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         startActivity(Intent(applicationContext, AboutActivity::class.java))
         return true
     }
 
 
-
-    private fun checkConnection(): Boolean{
-        val cm = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private fun checkConnection(): Boolean {
+        val cm =
+            applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
         return activeNetwork?.isConnectedOrConnecting == true
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         teamAdapter = TeamAdapter(this)
         binding.playerList.adapter = teamAdapter
     }
@@ -72,43 +73,54 @@ class TeamActivity : AppCompatActivity(), TeamScreen {
 
     override fun showTeam(team: Team?) {
         this@TeamActivity.runOnUiThread {
-        title = team!!.name
-        binding.team= team
-        teamAdapter.setPlayers(team.squad)
-        GlideToVectorYou.init().with(this).load(Uri.parse(team.crestUrl), binding.ivCrest)
+            title = team!!.name
+            binding.team = team
+            teamAdapter.setPlayers(team.squad)
+            GlideToVectorYou.init().with(this).load(Uri.parse(team.crestUrl), binding.ivCrest)
         }
     }
 
     override fun showNetworkError(e: Throwable) {
-        e.printStackTrace()
+        this@TeamActivity.runOnUiThread {
+            e.printStackTrace()
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.networkErrorText),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    override fun showDeleteSuccess(playerName: String?) {
         Toast.makeText(
             applicationContext,
-            getString(R.string.networkErrorText),
+            "$playerName sikeresen törölve lett!",
             Toast.LENGTH_SHORT
         ).show()
     }
 
-    override fun showDeleteSuccess(playerName: String?) {
-        Toast.makeText(applicationContext, "$playerName sikeresen törölve lett!", Toast.LENGTH_SHORT).show()
-    }
-
     override fun showPlayerAdded(id: Int?) {
-        Toast.makeText(applicationContext, getString(R.string.playerAddedText), Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, getString(R.string.playerAddedText), Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun showPlayerModified(player: Player?) {
-        Toast.makeText(applicationContext, getString(R.string.playerModifiedText), Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            applicationContext,
+            getString(R.string.playerModifiedText),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
-    fun deletePlayer(player: Player){
+    fun deletePlayer(player: Player) {
         teamPresenter.deletePlayer(player)
     }
 
-    fun addPlayer(player: Player){
+    fun addPlayer(player: Player) {
         teamPresenter.addPlayer(player)
     }
 
-    fun modify(player: Player){
+    fun modify(player: Player) {
         teamPresenter.modifyPlayer(player)
     }
 }

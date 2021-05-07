@@ -15,7 +15,8 @@ import javax.inject.Inject
 import kotlin.properties.Delegates
 
 class PlayerActivity : AppCompatActivity(), PlayerScreen {
-    @Inject lateinit var playerPresenter: PlayerPresenter
+    @Inject
+    lateinit var playerPresenter: PlayerPresenter
     private lateinit var binding: ActivityPlayerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,18 +39,27 @@ class PlayerActivity : AppCompatActivity(), PlayerScreen {
     }
 
     override fun showError(e: Throwable?) {
-        e!!.printStackTrace()
-        Toast.makeText(applicationContext,  getString(R.string.networkErrorText), Toast.LENGTH_LONG).show()
+        this@PlayerActivity.runOnUiThread {
+            e!!.printStackTrace()
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.networkErrorText),
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     override fun showPlayer(p: Player?) {
-        title = p!!.name
-        binding.player = p
+        this@PlayerActivity.runOnUiThread {
+            title = p!!.name
+            binding.player = p
+        }
     }
 
 
-    private fun checkConnection(): Boolean{
-        val cm = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private fun checkConnection(): Boolean {
+        val cm =
+            applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
         return activeNetwork?.isConnectedOrConnecting == true
     }

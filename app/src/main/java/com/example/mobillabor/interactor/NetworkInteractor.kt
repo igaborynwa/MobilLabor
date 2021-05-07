@@ -16,19 +16,21 @@ class NetworkInteractor @Inject constructor(private var api: FootballApi){
         onSuccess: (T) -> Unit,
         onError: (Throwable) -> Unit
     ) {
-        val handler = Handler()
-        Thread {
+        //val handler = Handler()
+       // Thread {
             try {
                 val response = call.execute().body()!!
-                handler.post {
+                //handler.post {
                     onSuccess(response)
-                }
+                //}
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                handler.post { onError(e) }
+              //  handler.post {
+             onError(e)
+            //  }
             }
-        }.start()
+       // }.start()
     }
 
     fun getTeam(id: Int, onSuccess:(Team)->Unit, onError: (Throwable)->Unit){
@@ -46,7 +48,6 @@ class NetworkInteractor @Inject constructor(private var api: FootballApi){
     }
 
     fun createPlayer(player: Player, onSuccess:(Int)->Unit, onError: (Throwable)->Unit ){
-
         onSuccess(player.id)
     }
 

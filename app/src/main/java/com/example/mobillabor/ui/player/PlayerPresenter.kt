@@ -9,7 +9,8 @@ import javax.inject.Inject
 class PlayerPresenter @Inject constructor(private val networkInteractor: NetworkInteractor, private val dbInteractor: DBInteractor): Presenter<PlayerScreen?>() {
 
     fun getPlayer(id: Int, con: Boolean){
-        if(con) networkInteractor.getPlayer(id, this::onGetPlayerSuccess, this::onError )
+        if(con)
+            Thread{networkInteractor.getPlayer(id, this::onGetPlayerSuccess, this::onError)}.start()
         else{
             getPlayerFromDb(id)
         }

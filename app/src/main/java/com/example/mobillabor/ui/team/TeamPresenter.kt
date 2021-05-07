@@ -10,12 +10,13 @@ import javax.inject.Inject
 class TeamPresenter @Inject constructor(private val networkInteractor: NetworkInteractor,
                                         private val dbInteractor: DBInteractor): Presenter<TeamScreen?>() {
     fun getTeam(con: Boolean){
-        if(con) networkInteractor.getTeam(64, onSuccess = this::onGetTeamSuccess, this::onError)
+        if(con)
+            Thread{networkInteractor.getTeam(64, onSuccess = this::onGetTeamSuccess, this::onError)}.start()
         else getTeamFromDb()
 
     }
 
-    fun getTeamFromDb(){
+    private fun getTeamFromDb(){
         Thread{
             val team = dbInteractor.getTeam(64)
             val squad = dbInteractor.getPlayers()
@@ -26,7 +27,7 @@ class TeamPresenter @Inject constructor(private val networkInteractor: NetworkIn
         }.start()
     }
 
-    private fun onGetTeamSuccess(team: Team) {
+     private fun onGetTeamSuccess(team: Team) {
         addTeamToDB(team)
         screen?.showTeam(team)
     }
