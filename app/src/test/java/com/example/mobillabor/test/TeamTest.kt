@@ -61,10 +61,9 @@ class TeamTest {
     fun testAddPlayer(){
         val salah = Player(3754, "Mohamed Salah","1992-06-15", "Egypt", "Egypt","Attacker")
         teamPresenter.addPlayer(salah)
-        teamPresenter.getTeam(false)
-        val team = argumentCaptor<Team>()
-        Mockito.verify(teamScreen).showTeam(team.capture())
-        assert(team.value.squad[0].name == "Mohamed Salah")
+        val playerId = argumentCaptor<Int>()
+        Mockito.verify(teamScreen).showPlayerAdded(playerId.capture())
+        assert(playerId.value == 3754)
     }
 
 
