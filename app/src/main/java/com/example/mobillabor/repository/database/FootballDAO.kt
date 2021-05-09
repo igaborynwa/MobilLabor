@@ -9,8 +9,6 @@ import com.example.mobillabor.model.Team
 
 @Dao
 interface FootballDAO {
-    @Query("SELECT * FROM teams")
-    fun getTeams(): List<Team>
 
     @Query("SELECT * FROM teams WHERE id = :id")
     fun getTeam(id: Int): Team?
@@ -29,8 +27,5 @@ interface FootballDAO {
 
     @Delete
     fun deletePlayer(player: Player)
-
-    @Delete
-    fun deleteTeam(team: Team)
 
 }

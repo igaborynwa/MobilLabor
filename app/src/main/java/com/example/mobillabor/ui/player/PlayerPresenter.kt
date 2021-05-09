@@ -1,6 +1,5 @@
 package com.example.mobillabor.ui.player
 
-import android.util.Log
 import com.example.mobillabor.interactor.DBInteractor
 import com.example.mobillabor.interactor.NetworkInteractor
 import com.example.mobillabor.model.Player
@@ -10,7 +9,8 @@ import javax.inject.Inject
 class PlayerPresenter @Inject constructor(private val networkInteractor: NetworkInteractor, private val dbInteractor: DBInteractor): Presenter<PlayerScreen?>() {
 
     fun getPlayer(id: Int, con: Boolean){
-        if(con) networkInteractor.getPlayer(id, this::onGetPlayerSuccess, this::onError )
+        if(con)
+            Thread{networkInteractor.getPlayer(id, this::onGetPlayerSuccess, this::onError)}.start()
         else{
             getPlayerFromDb(id)
         }
@@ -18,9 +18,7 @@ class PlayerPresenter @Inject constructor(private val networkInteractor: Network
 
     private fun getPlayerFromDb(id: Int) {
         Thread{
-            Log.d("id", id.toString())
             val player = dbInteractor.getPlayer(id)
-            Log.d("id", player.toString())
             onGetPlayerSuccess(player!!)
         }.start()
     }
@@ -31,7 +29,6 @@ class PlayerPresenter @Inject constructor(private val networkInteractor: Network
     }
 
     private fun onGetPlayerSuccess(p: Player){
-        Log.d("id", p.name)
         screen?.showPlayer(p)
     }
 

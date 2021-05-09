@@ -54,6 +54,6 @@ interface FootballApi {
      * @return Call<Void>
     </Void> */
     @DELETE("players/{id}")
-    fun deletePlayersId(@Path("id") id: Int, @Header("X-Auth-Token") xAuthToken: String): Call<Void>
+    fun deletePlayersId(@Path("id") id: Int, @Header("X-Auth-Token") xAuthToken: String): Call<String>
 
 }

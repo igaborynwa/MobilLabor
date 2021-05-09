@@ -37,6 +37,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -61,7 +67,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    kaptTest 'com.google.dagger:dagger-compiler:2.29.1'
 
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'androidx.annotation:annotation:1.2.0'
@@ -72,5 +77,35 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
 
+    def test_support_version = '1.0.2'
+    def support_version = '28.0.0'
+    def junit_version = "4.12"
+    def mockito_version = "2.23.4"
+    def espresso_version = "3.0.2"
+    def robolectric_version = "4.1"
+    def dagger_version = "2.29.1"
+
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "org.robolectric:robolectric:$robolectric_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+
+    testImplementation "com.google.dagger:dagger:$dagger_version"
+    testImplementation 'javax.annotation:jsr250-api:1.0'
+    kaptTest "com.google.dagger:dagger-compiler:$dagger_version"
+
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-idling-resource:$espresso_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espresso_version"
+    androidTestImplementation "org.mockito:mockito-core:$mockito_version"
+    androidTestImplementation "com.android.support.test:runner:$test_support_version"
+    androidTestImplementation "com.android.support.test:rules:$test_support_version"
+    androidTestImplementation "com.android.support:support-annotations:$support_version"
+
+    androidTestImplementation "com.google.dagger:dagger:$dagger_version"
+    androidTestImplementation 'javax.annotation:jsr250-api:1.0'
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
+
+    testImplementation 'androidx.test:core:1.0.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3'
 
 }
