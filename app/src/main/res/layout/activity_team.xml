@@ -2,20 +2,79 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="team"
+            type="com.example.mobillabor.model.Team" />
+    </data>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.team.TeamActivity">
 
+    <ImageView
+        android:id="@+id/ivCrest"
+        android:layout_width="165dp"
+        android:layout_height="179dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
+
     <TextView
-        android:id="@+id/tvTeamName"
+        android:id="@+id/tvTeamWebsite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Team Activity!"
+        android:text="@{@string/tvWebsiteText(team.website)}"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/ivCrest"
+        app:layout_constraintTop_toTopOf="@id/ivCrest"
+        app:layout_constraintBottom_toTopOf="@+id/tvFounded"/>
+
+    <TextView
+        android:id="@+id/tvFounded"
+        android:text="@{@string/tvFoundedText(team.founded)}"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/ivCrest"
+        app:layout_constraintTop_toBottomOf="@id/tvTeamWebsite"
+        app:layout_constraintBottom_toTopOf="@+id/tvVenue"/>
+    <TextView
+        android:id="@+id/tvVenue"
+        android:text="@{@string/tvVenueText(team.venue)}"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/ivCrest"
+        app:layout_constraintTop_toBottomOf="@id/tvFounded"
+        app:layout_constraintBottom_toTopOf="@+id/tvColors"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvColors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{@string/tvColorsText(team.clubColors)}"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/playerList"
+        app:layout_constraintLeft_toRightOf="@id/ivCrest"
+        app:layout_constraintTop_toBottomOf="@id/tvVenue" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/playerList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivCrest" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

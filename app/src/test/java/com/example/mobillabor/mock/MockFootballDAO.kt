@@ -5,10 +5,13 @@ import com.example.mobillabor.model.Team
 import com.example.mobillabor.repository.database.FootballDAO
 
 class MockFootballDAO: FootballDAO {
-    private var teams = ArrayList<Team>()
+    private var teams =Team(64, "Liverpool FC","http://www.liverpoolfc.tv",
+            "https://crests.football-data.org/64.svg", 1892, "Red / White", "Anfield")
     private var players = ArrayList<Player>()
 
-    override fun getTeams(): List<Team> {
+
+    override fun getTeam(id: Int): Team {
+        teams.squad = players
         return teams
     }
 
@@ -17,14 +20,11 @@ class MockFootballDAO: FootballDAO {
     }
 
     override fun getPlayer(id: Int): Player {
-        for(p in players){
-            if (p.id == id) return p
-        }
-        return players[0]
+       return Player(3754, "Mohamed Salah","1992-06-15", "Egypt", "Egypt","Attacker")
     }
 
     override fun insertTeam(team: Team) {
-        teams.add(team)
+        teams = team
     }
 
     override fun insertPlayer(player: Player) {
@@ -35,7 +35,5 @@ class MockFootballDAO: FootballDAO {
         players.remove(player)
     }
 
-    override fun deleteTeam(team: Team) {
-        teams.remove(team)
-    }
+
 }

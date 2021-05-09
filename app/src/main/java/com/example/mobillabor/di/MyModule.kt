@@ -1,6 +1,9 @@
 package com.example.mobillabor.di
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import com.example.mobillabor.interactor.DBInteractor
 import com.example.mobillabor.interactor.NetworkInteractor
 import com.example.mobillabor.model.Player
@@ -44,9 +47,11 @@ class MyModule(private var context: Context) {
 
     @Provides
     @Singleton
-    fun providesTeamPresenter(networkInteractor: NetworkInteractor) = TeamPresenter(networkInteractor)
+    fun providesTeamPresenter(networkInteractor: NetworkInteractor, dbInteractor: DBInteractor) = TeamPresenter(networkInteractor, dbInteractor)
 
     @Provides
     @Singleton
-    fun providesPlayerPresenter() = PlayerPresenter()
+    fun providesPlayerPresenter(networkInteractor: NetworkInteractor, dbInteractor: DBInteractor) = PlayerPresenter(networkInteractor, dbInteractor)
+
+
 }

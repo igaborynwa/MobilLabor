@@ -12,6 +12,6 @@ data class Player (
     @SerializedName("dateOfBirth") var dateOfBirth: String,
     @SerializedName("countryOfBirth") var countryOfBirth: String,
     @SerializedName("nationality") var nationality: String,
-    @SerializedName("position") var position: String
+    @SerializedName("position") var position: String?
 
         )

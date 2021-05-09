@@ -11,25 +11,26 @@ import javax.inject.Inject
 class NetworkInteractor @Inject constructor(private var api: FootballApi){
     private val token = "523d71ebf3984ab0ae29ead39e61497f"
 
-
     private fun <T> runCallOnBackgroundThread(
         call: Call<T>,
         onSuccess: (T) -> Unit,
         onError: (Throwable) -> Unit
     ) {
-        val handler = Handler()
-        Thread {
+        //val handler = Handler()
+       // Thread {
             try {
                 val response = call.execute().body()!!
-                handler.post {
+                //handler.post {
                     onSuccess(response)
-                }
+                //}
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                handler.post { onError(e) }
+              //  handler.post {
+             onError(e)
+            //  }
             }
-        }.start()
+       // }.start()
     }
 
     fun getTeam(id: Int, onSuccess:(Team)->Unit, onError: (Throwable)->Unit){
@@ -43,18 +44,15 @@ class NetworkInteractor @Inject constructor(private var api: FootballApi){
     }
 
     fun modifyPlayer(player: Player, onSuccess:(Player)->Unit, onError: (Throwable)->Unit){
-        val request = api.putPlayersId(player.id, token, player)
-        runCallOnBackgroundThread(request, onSuccess, onError)
+        onSuccess(player)
     }
 
     fun createPlayer(player: Player, onSuccess:(Int)->Unit, onError: (Throwable)->Unit ){
-        val request = api.postPlayersId(token, player)
-        runCallOnBackgroundThread(request, onSuccess, onError)
+        onSuccess(player.id)
     }
 
-    fun deletePlayer(id: Int, onSuccess:(Void)->Unit, onError: (Throwable)->Unit){
-        val request = api.deletePlayersId(id, token)
-        runCallOnBackgroundThread(request, onSuccess, onError)
+    fun deletePlayer(player: Player, onSuccess:(String)->Unit, onError: (Throwable)->Unit){
+        onSuccess(player.name)
     }
 
 }

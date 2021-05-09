@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">MobilLabor</string>
+    <string name="tvWebsiteText">Weboldal: %s</string>
+    <string name="tvFoundedText">Alapítás éve: %s</string>
+    <string name="tvVenueText">Stadion: %s</string>
+    <string name="tvColorsText">Klub színek: %s</string>
+    <string name="tvCountryOfBirthText">Születési hely: %s</string>
+    <string name="tvDateOfBirthText">Születési dátum: %s</string>
+    <string name="tvNationalityText">Nemzetiség: %s</string>
+    <string name="tvPositionText">Pozíció: %s</string>
+    <string name="action_info">Info</string>
+    <string name="tvAboutText">Imre Gábor\nMobilszoftver laboratórium</string>
+    <string name="networkErrorText">Hiba a hálózati kommunikáció során!</string>
+    <string name="playerAddedText">Kedvenc játékos ki lett jelölve!</string>
+    <string name="playerModifiedText">Kedvenc játékos kijelölése megváltozott!</string>
+    <string name="aboutActivityTitle">Információk</string>
+
 </resources>
