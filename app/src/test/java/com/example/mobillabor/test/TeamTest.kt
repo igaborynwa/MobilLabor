@@ -42,7 +42,7 @@ class TeamTest {
             launch(Dispatchers.Main) {
                 teamPresenter.getTeam(false)
                 val team = argumentCaptor<Team>()
-                Mockito.verify(teamScreen).showTeam(team.capture())
+                Mockito.verify(teamScreen,  timeout(5000)).showTeam(team.capture())
                 assert(team.value.name == "Liverpool FC")
             }
         }
@@ -54,7 +54,7 @@ class TeamTest {
             launch(Dispatchers.Main) {
                 teamPresenter.getTeam(true)
                 val team = argumentCaptor<Team>()
-                Mockito.verify(teamScreen, timeout(3000)).showTeam(team.capture())
+                Mockito.verify(teamScreen, timeout(5000)).showTeam(team.capture())
                 assert(team.value.name == "Liverpool FC")
             }
         }

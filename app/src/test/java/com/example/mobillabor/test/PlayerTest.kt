@@ -42,7 +42,7 @@ class PlayerTest {
             launch(Dispatchers.Main) {
                 playerPresenter.getPlayer(3754, false)
                 val player = argumentCaptor<Player>()
-                verify(playerScreen, timeout(3000)).showPlayer(player.capture())
+                verify(playerScreen, timeout(5000)).showPlayer(player.capture())
                 assert(player.value.id == 3754)
                 assert(player.value.name == "Mohamed Salah")
             }
@@ -55,7 +55,7 @@ class PlayerTest {
             launch(Dispatchers.Main) {
                 playerPresenter.getPlayer(3754, true)
                 val player = argumentCaptor<Player>()
-                verify(playerScreen, timeout(3000)).showPlayer(player.capture())
+                verify(playerScreen, timeout(5000)).showPlayer(player.capture())
                 assert(player.value.id == 3754)
                 assert(player.value.name == "Mohamed Salah")
             }
