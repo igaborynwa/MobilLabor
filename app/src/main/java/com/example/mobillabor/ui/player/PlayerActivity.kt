@@ -3,26 +3,30 @@ package com.example.mobillabor.ui.player
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.util.StatsLog.logEvent
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.mobillabor.R
 import com.example.mobillabor.databinding.ActivityPlayerBinding
 import com.example.mobillabor.di.MainApplication
 import com.example.mobillabor.model.Player
+import com.google.firebase.analytics.FirebaseAnalytics
 import javax.inject.Inject
-import kotlin.properties.Delegates
+
 
 class PlayerActivity : AppCompatActivity(), PlayerScreen {
     @Inject
     lateinit var playerPresenter: PlayerPresenter
     private lateinit var binding: ActivityPlayerBinding
 
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
         (application as MainApplication).injector.inject(this)
     }
 
@@ -54,6 +58,11 @@ class PlayerActivity : AppCompatActivity(), PlayerScreen {
             title = p!!.name
             binding.player = p
         }
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, p!!.id.toString())
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, p.name)
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+
     }
 
 

@@ -20,6 +20,8 @@ import com.example.mobillabor.model.Team
 import com.example.mobillabor.ui.about.AboutActivity
 import com.example.mobillabor.ui.team.adapter.TeamAdapter
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
+import com.google.firebase.analytics.FirebaseAnalytics
+import java.lang.RuntimeException
 import javax.inject.Inject
 
 
@@ -35,6 +37,7 @@ class TeamActivity : AppCompatActivity(), TeamScreen {
         setContentView(binding.root)
         (application as MainApplication).injector.inject(this)
         teamPresenter.getTeam(checkConnection())
+
         initRecyclerView()
     }
 
